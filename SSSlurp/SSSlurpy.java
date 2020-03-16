@@ -21,12 +21,12 @@ public class SSSlurpy {
 				//Test each method as you write it by changing the method called below
 				//				System.out.println("word : " + word + " " + isSlump(word));
 				//				System.out.println("word : " + word + " " + isSlimp(word));
-				System.out.println("word : " + word + " " + isSlurpy(word));
+				//				System.out.println("word : " + word + " " + isSlurpy(word));
 				//System.out.print((i+1) +": ");
 				if(isSlurpy(word))
 					System.out.println("YES");
-				//else
-				//	System.out.println("NO");
+				else
+					System.out.println("NO");
 			}
 			System.out.println("END OF OUTPUT");
 		} catch (FileNotFoundException e) {
@@ -48,10 +48,13 @@ public class SSSlurpy {
 	 * @return true if w follows above rules, false otherwise
 	 */
 	public static boolean isSlump(String w){
+		if(0 == w.length()) {
+			return false;
+		}
 		if(1 < w.length() && w.substring(0, 1).equals("D") || w.substring(0, 1).equals("E")) {
 			return isSlump(w.substring(1));
 		}else if (1 < w.length() && w.substring(0,1).equals("F")) {
-			if(2 <= w.length() && w.substring(1,2).equals("G")) {
+			if(2 == w.length() && w.substring(1,2).equals("G")) {
 				return true;
 			}
 			return isSlump(w.substring(1));
@@ -73,6 +76,9 @@ public class SSSlurpy {
 	 * @return
 	 */
 	public static boolean isSlimp(String w){
+		if(0 == w.length()) {
+			return false;
+		}
 		if(2 <= w.length() && w.substring(0,1).equals("A")) {
 			if(w.length() == 2 && w.substring(1,2).equals("H")) {
 				return true;
@@ -98,16 +104,17 @@ public class SSSlurpy {
 	 * @return true if w is a slimp followed by a slump, false otherwise
 	 */
 	public static boolean isSlurpy(String w){
-//		if(w.indexOf("C") > 0 && isSlimp(w.substring(0, w.indexOf("C")))){
-//			if(isSlump(w.substring(w.indexOf("D")))) {
-//				return true;
-//			}
-//		}else if(w.indexOf("H") > 0 && isSlimp(w.substring(0, w.indexOf("H")))){
-//			if(isSlump(w.substring(w.indexOf("E")))) {
-//				return true;
-//			}
-//		}
-		
+		return isSlurpy(w,1);
+	}
+
+	private static boolean isSlurpy(String w, int index) {
+		if(isSlimp(w.substring(0,index))) {
+			if(isSlump(w.substring(index))) {
+				return true;
+			}
+		}else if(index+1 < w.length()) {
+			return isSlurpy(w, index+1);
+		}
 		return false;
 	}
 }
