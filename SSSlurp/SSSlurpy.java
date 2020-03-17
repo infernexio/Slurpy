@@ -19,14 +19,14 @@ public class SSSlurpy {
 			for(int i = 0; i<numWords; i++){
 				String word = sc.next();
 				//Test each method as you write it by changing the method called below
-				//				System.out.println("word : " + word + " " + isSlump(word));
+				System.out.println("word : " + word + " " + isSlump(word));
 				//				System.out.println("word : " + word + " " + isSlimp(word));
 				//				System.out.println("word : " + word + " " + isSlurpy(word));
 				//System.out.print((i+1) +": ");
-				if(isSlurpy(word))
-					System.out.println("YES");
-				else
-					System.out.println("NO");
+				//				if(isSlurpy(word))
+				//					System.out.println("YES");
+				//				else
+				//					System.out.println("NO");
 			}
 			System.out.println("END OF OUTPUT");
 		} catch (FileNotFoundException e) {
@@ -52,16 +52,19 @@ public class SSSlurpy {
 			return false;
 		}
 		if(1 < w.length() && w.substring(0, 1).equals("D") || w.substring(0, 1).equals("E")) {
-			return isSlump(w.substring(1));
+			if(1 < w.length() && w.substring(1,2).equals("F")) {
+				return isSlump(w.substring(1));
+			}
 		}else if (1 < w.length() && w.substring(0,1).equals("F")) {
 			if(2 == w.length() && w.substring(1,2).equals("G")) {
+				return true;
+			}else if(isSlump(w.substring(1))) {
 				return true;
 			}
 			return isSlump(w.substring(1));
 		}
 
-		return false;
-
+		return false;	
 	}
 
 	/**
@@ -107,6 +110,12 @@ public class SSSlurpy {
 		return isSlurpy(w,1);
 	}
 
+	/**
+	 * helper method for slurpy
+	 * @param w - the word given 
+	 * @param index - index of the w to start
+	 * @return - true if slurpy false otherwise
+	 */
 	private static boolean isSlurpy(String w, int index) {
 		if(isSlimp(w.substring(0,index))) {
 			if(isSlump(w.substring(index))) {
